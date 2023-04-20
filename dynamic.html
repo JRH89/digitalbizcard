@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Digital Business Card</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+    <meta name="description" content="Sample digital business card generator"/>
+    <meta property="og:image" content="sitepreview.png"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="shortcut icon" type="image/png" href="Hooker Hill.png" />
+    <meta name="robots" content="follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large"/>
+	<style>
+		@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300&display=swap');
+	</style>
+		
+</head>
+
+<header>
+    <div class="vcardbutton">
+        <button id="vcard-download-button">Save Contact</button>
+    </div>
+</header>
+
+<body>
+	<div class="container">
+		<div class="profile-container">
+            <div class="top-left">
+                <h1><span id="profile-name"></span></h1>
+                <h2><span id="profile-job"></span></h2>
+                <p>
+                <a href="#" id="profile-phone-link" onclick="makeCall(event)">
+                    <i class="fa fa-phone"></i> <span id="profile-phone"></span>
+                </a>
+                <a href="#" id="profile-email-link">
+                    <i class="fa fa-envelope"></i> <span id="profile-email"></span>
+                </a>
+                </p>
+			</div>
+
+            <div class="bottom-right">           
+                <ul>
+                 
+			    </ul>         
+            </div>
+            
+		</div>
+    </div>
+
+	<script src="dynamicscript.js"></script>
+	
+	<footer>
+        <p>
+          <a href="https://digitalbizcard.netlify.app">Hooker Hill Studios © 2023</a>
+        </p>
+      </footer>
+
+    </body>
+</html>
