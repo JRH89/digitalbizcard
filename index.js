@@ -3,6 +3,8 @@ const form = document.querySelector("#myForm");
 const qrCodeContainer = document.querySelector("#qr-code-container");
 const shortenedUrlContainer = document.querySelector("#shortened-url");
 
+const db = firebase.firestore();
+
 form.addEventListener("submit", function (event) {
     event.preventDefault();
 
@@ -50,8 +52,20 @@ form.addEventListener("submit", function (event) {
               padding: null,
             });
 
-            qrCode.value = shortenedUrl
-            
+            qrCode.value = shortenedUrl;
+
+            // Add long and short URL to Firebase
+            db.collection("urls").add({
+              longUrl: url,
+              shortUrl: shortenedUrl,
+              timestamp: firebase.firestore.FieldValue.serverTimestamp()
+            })
+            .then((docRef) => {
+              console.log("Document written with ID: ", docRef.id);
+            })
+            .catch((error) => {
+              console.error("Error adding document: ", error);
+            });
         }
         else {
         shortenedUrlContainer.innerHTML += "Error: Unable to shorten URL";
@@ -64,6 +78,7 @@ form.addEventListener("submit", function (event) {
         return DOMPurify.sanitize(input);
     }
 });
+
 
 function downloadQRCode() {
     const qrCodeCanvas = document.querySelector("#qr-code-container");
