@@ -1,13 +1,19 @@
+const AWS = require('aws-sdk');
 
-document.addEventListener('DOMContentLoaded', function() {
+const credentials = new AWS.Credentials({
+  accessKeyId: 'AKIA2ZZHTB5VZE22VNUD',
+  secretAccessKey: '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'
+});
+
+AWS.config.update({ credentials });
+
+const dynamoDB = new AWS.DynamoDB.DocumentClient({ region: 'us-west-1' });
+const dynamoDBClient = new AWS.DynamoDB({ region: 'us-west-1' });
+
+
 const form = document.querySelector("#myForm");
 const qrCodeContainer = document.querySelector("#qr-code-container");
 const shortenedUrlContainer = document.querySelector("#shortened-url");
-
-
-
-// Get a reference to the database service
-const db = firebase.firestore();
 
 form.addEventListener("submit", function (event) {
     event.preventDefault();
@@ -42,46 +48,52 @@ form.addEventListener("submit", function (event) {
     const apiKey = "9nOYxqR30G4pYNDi1tlcNLv5OSOcx5iL6KN9V83qKgxmi1P9ZIsM1kThGdeK";
     const urlToShorten = encodeURIComponent(url);
     const apiUrl = `https://tinyurl.com/api-create.php?url=${urlToShorten}&apikey=${apiKey}`;
-
+    
     request.open("POST", apiUrl);
     request.onload = function () {
-        if (request.status === 200) {
-            const shortenedUrl = request.responseText;
-            const qrCode = new QRious({
-              element: qrCodeContainer,
-              size: 256,
-              foreground: "black",
-              background: "white",
-              level: "H",
-              padding: null,
-            });
+      if (request.status === 200) {
+          const shortenedUrl = request.responseText;
+          const qrCode = new QRious({
+            element: qrCodeContainer,
+            size: 256,
+            foreground: "black",
+            background: "white",
+            level: "H",
+            padding: null,
+          });
+  
+          qrCode.value = shortenedUrl;
+  
+          const urlItem = {
+              TableName: 'URLs',
+              Item: {
+                  shortenedUrl: { S: shortenedUrl },
+                  longUrl: { S: url }
+              }
+          };
+          
+          dynamoDBClient.putItem(urlItem, function (err, data) {
+              if (err) {
+                  console.error("Error inserting item into DynamoDB:", err);
+              } else {
+                  console.log("Item inserted into DynamoDB:", data);
+              }
+          });
+  
+      }
+      else {
+          shortenedUrlContainer.innerHTML += "Error: Unable to shorten URL";
+      }
+      document.querySelector(".stuff").style.display = "flex";
+  };
+  
+  request.send();
 
-            qrCode.value = shortenedUrl;
-
-            // Add long and short URL to Firebase
-            db.collection("URLdb").add({
-              longUrl: url,
-              shortUrl: shortenedUrl,
-              timestamp: firebase.firestore.FieldValue.serverTimestamp()
-            })
-            .then((docRef) => {
-              console.log("Document written with ID: ", docRef.id);
-            })
-            .catch((error) => {
-              console.error("Error adding document: ", error);
-            });
-        }
-        else {
-        shortenedUrlContainer.innerHTML += "Error: Unable to shorten URL";
-        }
-        document.querySelector(".stuff").style.display = "flex";
-    };
-    request.send();
-
-    function sanitizeInput(input) {
-        return DOMPurify.sanitize(input);
-    }
+  function sanitizeInput(input) {
+    return DOMPurify.sanitize(input);
+  }
 });
+
 
 
 function downloadQRCode() {
@@ -103,4 +115,3 @@ function downloadQRCode() {
 const downloadBtn = document.getElementById("downloadBtn");
 downloadBtn.addEventListener("click", downloadQRCode);
 
-});
