@@ -1,3 +1,5 @@
+import firebase from 'firebase/app';
+import 'firebase/firestore';
 document.addEventListener('DOMContentLoaded', function() {
 const form = document.querySelector("#myForm");
 const qrCodeContainer = document.querySelector("#qr-code-container");
@@ -14,8 +16,8 @@ const firebaseConfig = {
     measurementId: "G-1BGXQ94LG9"
   };
   
-  firebase.initializeApp(firebaseConfig);
-  
+firebase.initializeApp(firebaseConfig);
+
 const db = firebase.firestore();
 
 form.addEventListener("submit", function (event) {
