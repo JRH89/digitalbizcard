@@ -4,7 +4,7 @@ const form = document.querySelector("#myForm");
 const qrCodeContainer = document.querySelector("#qr-code-container");
 const shortenedUrlContainer = document.querySelector("#shortened-url");
 
-const db = firebase.firestore();
+
 
 form.addEventListener("submit", function (event) {
     event.preventDefault();
