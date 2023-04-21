@@ -4,19 +4,6 @@ const form = document.querySelector("#myForm");
 const qrCodeContainer = document.querySelector("#qr-code-container");
 const shortenedUrlContainer = document.querySelector("#shortened-url");
 
-const firebaseConfig = {
-    apiKey: "AIzaSyDdnqEj46MQLxgz8EQLLeOsqwuv3C9lpqs",
-    authDomain: "urldb-2989d.firebaseapp.com",
-    databaseURL: "https://urldb-2989d-default-rtdb.firebaseio.com",
-    projectId: "urldb-2989d",
-    storageBucket: "urldb-2989d.appspot.com",
-    messagingSenderId: "247072602769",
-    appId: "1:247072602769:web:43576e113619c8922b9d30",
-    measurementId: "G-1BGXQ94LG9"
-  };
-  
-firebase.initializeApp(firebaseConfig);
-
 const db = firebase.firestore();
 
 form.addEventListener("submit", function (event) {
