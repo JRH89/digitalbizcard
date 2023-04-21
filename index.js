@@ -32,7 +32,7 @@ form.addEventListener("submit", function (event) {
     { id: "#social4-label", param: "social4Label" },
     ];
           
-    let url = "https://jolly-cactus-0be4f3.netlify.app/dynamic?";
+    let url = "https://jolly-cactus-0be4f3.netlify.app/DIGITALBIZCARD/dynamic?";
     inputFields.forEach((field) => {
     const value = sanitizeInput(document.querySelector(field.id).value);
     if (value !== "" && field.param.startsWith("social")) {
