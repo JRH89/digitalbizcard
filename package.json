@@ -1,5 +1,24 @@
 {
   "dependencies": {
     "aws-sdk": "^2.1362.0"
-  }
+  },
+  "name": "digitalbizcard",
+  "description": "<h1>Digital Business Card</h1>",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "build":"npm run build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JRH89/digitalbizcard.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JRH89/digitalbizcard/issues"
+  },
+  "homepage": "https://github.com/JRH89/digitalbizcard#readme"
 }
