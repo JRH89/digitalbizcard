@@ -59,7 +59,7 @@ form.addEventListener("submit", function (event) {
             qrCode.value = shortenedUrl;
 
             // Add long and short URL to Firebase
-            db.collection("urls").add({
+            db.collection("URLdb").add({
               longUrl: url,
               shortUrl: shortenedUrl,
               timestamp: firebase.firestore.FieldValue.serverTimestamp()
