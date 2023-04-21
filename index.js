@@ -1,4 +1,4 @@
-
+document.addEventListener('DOMContentLoaded', function() {
 const form = document.querySelector("#myForm");
 const qrCodeContainer = document.querySelector("#qr-code-container");
 const shortenedUrlContainer = document.querySelector("#shortened-url");
@@ -111,3 +111,5 @@ function downloadQRCode() {
       
 const downloadBtn = document.getElementById("downloadBtn");
 downloadBtn.addEventListener("click", downloadQRCode);
+
+});
