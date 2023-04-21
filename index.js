@@ -1,3 +1,4 @@
+
 const form = document.querySelector("#myForm");
 const qrCodeContainer = document.querySelector("#qr-code-container");
 const shortenedUrlContainer = document.querySelector("#shortened-url");
