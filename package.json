@@ -6,9 +6,11 @@
   "description": "<h1>Digital Business Card</h1>",
   "version": "1.0.0",
   "main": "index.js",
-  "devDependencies": {},
+  "devDependencies": {
+    "webpack": "^5.80.0"
+  },
   "scripts": {
-    "build":"npm run build",
+    "build": "webpack",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
