@@ -4,7 +4,7 @@ const form = document.querySelector("#myForm");
 const qrCodeContainer = document.querySelector("#qr-code-container");
 const shortenedUrlContainer = document.querySelector("#shortened-url");
 
-firebase.initializeApp(firebaseConfig);
+
 
 // Get a reference to the database service
 const db = firebase.firestore();
