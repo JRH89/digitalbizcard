@@ -1,5 +1,4 @@
-import firebase from 'firebase/app';
-import 'firebase/firestore';
+
 document.addEventListener('DOMContentLoaded', function() {
 const form = document.querySelector("#myForm");
 const qrCodeContainer = document.querySelector("#qr-code-container");
