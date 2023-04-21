@@ -7,7 +7,6 @@ const credentials = new AWS.Credentials({
 
 AWS.config.update({ credentials });
 
-const dynamoDB = new AWS.DynamoDB.DocumentClient({ region: 'us-west-1' });
 const dynamoDBClient = new AWS.DynamoDB({ region: 'us-west-1' });
 
 
