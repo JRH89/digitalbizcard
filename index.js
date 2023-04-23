@@ -51,7 +51,6 @@ form.addEventListener("submit", function (event) {
 
             qrCode.value = shortenedUrl;
 
-            saveMapping(shortenedUrl, url);
             
         }
         else {
@@ -59,32 +58,7 @@ form.addEventListener("submit", function (event) {
         }
         document.querySelector(".stuff").style.display = "flex";
     };
-    const mappings = {};
-inputFields.forEach((field) => {
-  const value = sanitizeInput(document.querySelector(field.id).value);
-  if (value !== "" && field.param.startsWith("social")) {
-    mappings[field.param] = encodeURIComponent(value);
-  } else if (value !== "" && !field.param.startsWith("social")) {
-    mappings[field.param] = encodeURIComponent(value);
-  }
-});
-
-fetch('/.netlify/functions/store-mapping', {
-  method: 'POST',
-  body: JSON.stringify({ mappings }),
-  headers: {
-    'Content-Type': 'application/json'
-  }
-})
-.then(response => {
-  if (response.ok) {
-    console.log('Mappings stored successfully');
-  } else {
-    console.log('Failed to store mappings');
-  }
-})
-.catch(err => console.error(err));
-
+    request.send();
 
     function sanitizeInput(input) {
         return DOMPurify.sanitize(input);
@@ -110,10 +84,3 @@ function downloadQRCode() {
 const downloadBtn = document.getElementById("downloadBtn");
 downloadBtn.addEventListener("click", downloadQRCode);
 
-function saveMapping(shortUrl, longUrl) {
-    const xhr = new XMLHttpRequest();
-    xhr.open('POST', 'save-mapping.php'); // This is the endpoint that will handle the saving of the mapping.
-    xhr.setRequestHeader('Content-Type', 'application/json');
-    xhr.send(JSON.stringify({ shortUrl, longUrl }));
-  }
-  
