@@ -1,6 +1,7 @@
 const form = document.querySelector("#myForm");
 const qrCodeContainer = document.querySelector("#qr-code-container");
 const shortenedUrlContainer = document.querySelector("#shortened-url");
+let request;
 
 form.addEventListener("submit", function (event) {
     event.preventDefault();
@@ -31,33 +32,13 @@ form.addEventListener("submit", function (event) {
     });
     url = url.slice(0, -1);
 
-    const request = new XMLHttpRequest();
+    request = new XMLHttpRequest();
     const apiKey = "9nOYxqR30G4pYNDi1tlcNLv5OSOcx5iL6KN9V83qKgxmi1P9ZIsM1kThGdeK";
     const urlToShorten = encodeURIComponent(url);
     const apiUrl = `https://tinyurl.com/api-create.php?url=${urlToShorten}&apikey=${apiKey}`;
 
     request.open("POST", apiUrl);
-    request.onload = function () {
-        if (request.status === 200) {
-            const shortenedUrl = request.responseText;
-            const qrCode = new QRious({
-              element: qrCodeContainer,
-              size: 256,
-              foreground: "black",
-              background: "white",
-              level: "H",
-              padding: null,
-            });
-
-            qrCode.value = shortenedUrl;
-
-            
-        }
-        else {
-        shortenedUrlContainer.innerHTML += "Error: Unable to shorten URL";
-        }
-        document.querySelector(".stuff").style.display = "flex";
-    };
+    request.onload = generate; 
     request.send();
 
     function sanitizeInput(input) {
@@ -84,3 +65,22 @@ function downloadQRCode() {
 const downloadBtn = document.getElementById("downloadBtn");
 downloadBtn.addEventListener("click", downloadQRCode);
 
+function generate() {
+  if (request.status === 200) {
+    const shortenedUrl = request.responseText;
+    const qrCode = new QRious({
+      element: qrCodeContainer,
+      size: 256,
+      foreground: "black",
+      background: "white",
+      level: "H",
+      padding: null,
+    });
+
+    qrCode.value = shortenedUrl;
+
+  } else {
+    shortenedUrlContainer.innerHTML += "Error: Unable to shorten URL";
+  }
+  document.querySelector(".stuff").style.display = "flex";
+};
