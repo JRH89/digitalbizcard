@@ -1,13 +1,3 @@
-const AWS = require('aws-sdk');
-
-const credentials = new AWS.Credentials({
-  accessKeyId: 'AKIA2ZZHTB5VZE22VNUD',
-  secretAccessKey: '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'
-});
-
-AWS.config.update({ credentials });
-
-const dynamoDBClient = new AWS.DynamoDB({ region: 'us-west-1' });
 
 
 const form = document.querySelector("#myForm");
